@@ -1,0 +1,12 @@
+{
+    "Account": "my-account",
+    "Values": {
+        "deployment": {
+            "appname": "app-name",
+            "image": "docker.io/image:tag",
+            "ports": [
+                123
+            ]
+        }
+    }
+}

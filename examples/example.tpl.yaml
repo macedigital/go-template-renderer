@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.appname }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.appname }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.appname }}
+    spec:
+      containers:
+      - name: myapp
+        image: {{ .Values.deployment.image }}
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        {{- range $port := .Values.deployment.ports }}
+        - containerPort: {{ $port }}
+        {{- end }}
