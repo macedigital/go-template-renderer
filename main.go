@@ -12,7 +12,7 @@ import (
 
 func indexedList(itemTemplate string, length int64) (string, error) {
 	if length < 0 {
-		return "", fmt.Errorf("expecting non-negative integer, got #{length}")
+		return "", fmt.Errorf("expecting non-negative integer, got %d", length)
 	}
 
 	result := make([]string, length)
@@ -47,23 +47,23 @@ func render(content string, values *interface{}, writer io.Writer) {
 
 	tmpl, err := template.New("tpl").Option("missingkey=error").Funcs(funcMap).Parse(content)
 	if err != nil {
-		log.Fatalf("cannot process template: #{err}")
+		log.Fatalf("cannot process template: %v", err)
 	}
 
 	err = tmpl.Execute(writer, values)
 	if err != nil {
-		log.Fatalf("cannot render template: #{err}")
+		log.Fatalf("cannot render template: %v", err)
 	}
 }
 
 func main() {
 	tmpl, err := os.ReadFile(os.Args[1])
 	if err != nil {
-		log.Fatalf("cannot load template file: #{err}")
+		log.Fatalf("cannot load template file: %v", err)
 	}
 	values, err := loadContext(os.Args[2])
 	if err != nil {
-		log.Fatalf("cannot load values file: #{err}")
+		log.Fatalf("cannot load values file: %v", err)
 	}
 
 	render(string(tmpl), values, os.Stdout)
